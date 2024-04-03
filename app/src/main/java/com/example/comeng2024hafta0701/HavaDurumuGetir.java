@@ -18,9 +18,15 @@ public class HavaDurumuGetir extends AsyncTask<String, Void, JSONObject> {
     @Override
     protected JSONObject doInBackground(String... strings) {
         String url="https://api.openweathermap.org/data/2.5/weather?lat=41.00213282964929&lon=39.71752631814765&appid=689e9049b1a24724ceca784c484685d3";
+        String url2="https://api.openweathermap.org/data/2.5/weather?q="+ java.net.URLEncoder.encode(strings[0]).replace("+","%20")+"&appid=689e9049b1a24724ceca784c484685d3";
         StringBuilder sb= new StringBuilder();
+        URL uri;
         try {
-            URL uri= new URL(url);
+            if(strings[0]=="")
+                uri = new URL(url);
+            else
+                uri=new URL(url2);
+
             HttpsURLConnection con= (HttpsURLConnection) uri.openConnection();
             con.connect();
 
